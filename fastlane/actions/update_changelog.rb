@@ -7,17 +7,20 @@ module Fastlane
         pre_change_data = params[:info]
         raise "The pre_change_data should not be nil".red unless (pre_change_data)
 
-        version = pre_change_data[:version]
-        raise "The version should not be nil".red unless (version)
+        # version = pre_change_data[:version]
+        # raise "The version should not be nil".red unless (version)
+
+        log_title = pre_change_data[:log_title]
+        raise "The log_title should not be nil".red unless (log_title)
 
         log_text = pre_change_data[:log_text]
         raise "The log_text should not be nil".red unless (log_text)
 
         change_log_file = File.read(params[:changelogfile])
 
-        File.open(params[:changelogfile], 'w') { |file| file.write(change_log_file.sub("-----", "-----\n\n#{log_text}-----")) }
+        File.open(params[:changelogfile], 'w') { |file| file.write(change_log_file.sub("-----", "-----\n\n#{log_title}#{log_text}-----")) }
 
-        return {:change_log => log_text}
+        # return {:change_log => log_text}
       end
 
       #####################################################

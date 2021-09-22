@@ -46,7 +46,7 @@ platform :ios do
     version_bump_podspec(version_number: target_version)
     
     #修改changlog文件
-    release_log = update_changelog(info: change_info)
+    update_changelog(info: change_info)
 
     # 运行lint
     run_lint
@@ -86,7 +86,8 @@ platform :ios do
         tag: change_info[:version],
         includes_lane: false,
         sign: true,
-        build_number: build_num
+        build_number: build_num,
+        message: ''
     )
     
     push_to_git_remote(
@@ -103,10 +104,10 @@ platform :ios do
     set_github_release(
       repository_name: ENV['REPOSITORY'],
       api_bearer: ENV['GITHUB_TOKEN'],
-      name: change_info[:version],
+      name: change_info[:log_title],
       tag_name: change_info[:version],
       description: change_info[:log_text],
-      # upload_assets: ["build/Kingfisher-#{target_version}.zip"]
+      # upload_assets: ["build/plume-#{target_version}.zip"]
     )
     
     # pod_push
