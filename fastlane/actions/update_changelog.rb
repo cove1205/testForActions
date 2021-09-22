@@ -10,24 +10,8 @@ module Fastlane
         version = pre_change_data[:version]
         raise "The version should not be nil".red unless (version)
 
-        add = pre_change_data[:add]
-        fix = pre_change_data[:fix]
-        remove = pre_change_data[:remove]
-
-        title_url = "https://github.com/cove1205/Plume/releases/tag/#{version}"
-        title_time = Time.now.strftime("%Y-%m-%d")
-
-        title = "## [#{version}](#{title_url}) (#{title_time})\n\n"
-        log_text = title
-        
-        add = add.map { |i| "* #{i}" }.join("\n") unless add.nil?
-        log_text = log_text + "### Add\n\n#{add}\n\n" unless add.nil? or add.empty?
-
-        fix = fix.map { |i| "* #{i}" }.join("\n") unless fix.nil?
-        log_text = log_text + "### Fix\n\n#{fix}\n\n" unless fix.nil? or fix.empty?
-          
-        remove = remove.map { |i| "* #{i}" }.join("\n") unless remove.nil?
-        log_text = log_text + "### Remove\n\n#{remove}\n\n" unless remove.nil? or remove.empty?
+        log_text = pre_change_data[:log_text]
+        raise "The log_text should not be nil".red unless (log_text)
 
         change_log_file = File.read(params[:changelogfile])
 

@@ -13,13 +13,25 @@ jobs:
     runs-on: macOS-latest
         
     steps:
-      - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@v1
+      - name: Checkout 
+        uses: actions/checkout@v2
+      - name: setup Ruby env and gems
+        uses: ruby/setup-ruby@v1
         with:
-        ruby-version: 2.7
-        bundler-cache: true
+          ruby-version: 2.7
+          bundler-cache: true
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v4
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          git_user_signingkey: true
+          git_config_global: true
+          # git_commit_gpgsign: true
+          # git_tag_gpgsign: true
       - name: Run release
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bundle exec fastlane release
+          REPOSITORY: ${{ github.repository }}
+        run: bundle exec fastlane release --verbose
