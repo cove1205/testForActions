@@ -1,7 +1,14 @@
+repository: cove1205/testForActions
+
 version: 0.1.0
 add: 
-  - "add gpg verifed"
-  - "add fastlane and Github Actions for CI"
+  - "Initial Commit"
 fix: 
-  - "modified readme docs"
 remove: 
+
+# add: 
+#   - "add gpg verifed"
+#   - "add fastlane and Github Actions for CI"
+# fix: 
+#   - "modified readme docs"
+# remove: 
