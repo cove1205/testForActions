@@ -19,7 +19,7 @@ platform :ios do
 
 
   desc "在日常分支进行release前的准备"
-  lane :prepare do |options|
+  lane :pre_release do |options|
 
     current_branch = 'develop'
 
@@ -52,7 +52,7 @@ platform :ios do
     run_lint
     
     #提交所有修改
-    git_commit_all(message: "Bump version to #{target_version}")
+    git_commit_all(message: "prepare release version to #{target_version}")
 
     push_to_git_remote(
       remote: "origin",         # optional, default: "origin"
@@ -64,6 +64,16 @@ platform :ios do
       # no_verify: true,# optional, default: false
       # set_upstream: true        # optional, default: false
     )
+
+    # create_pull_request(
+    #   api_token: "secret",      # optional, defaults to ENV["GITHUB_API_TOKEN"]
+    #   repo: "fastlane/fastlane",
+    #   title: "prepare release version to #{target_version}",
+    #   # head: "my-feature",       # optional, defaults to current branch name
+    #   # base: "master", # optional, defaults to "master"
+    #   body: "Please pull this in!",       # optional
+    #   # api_url: "http://yourdomain/api/v3" # optional, for GitHub Enterprise, defaults to "https://api.github.com"
+    # )
 
   end
 
@@ -104,7 +114,7 @@ platform :ios do
     set_github_release(
       repository_name: ENV['REPOSITORY'],
       api_bearer: ENV['GITHUB_TOKEN'],
-      name: change_info[:log_title],
+      name: change_info[:version],
       tag_name: change_info[:version],
       description: change_info[:log_text],
       # upload_assets: ["build/plume-#{target_version}.zip"]
