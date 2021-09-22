@@ -1,0 +1,25 @@
+name: release
+
+on:
+  push:
+    branches:
+        - master
+  pull_request_review:
+    types: [submitted]
+    branches:
+        - master
+jobs:
+  run-release:
+    runs-on: macOS-latest
+        
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+        ruby-version: 2.7
+        bundler-cache: true
+      - name: Run release
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bundle exec fastlane release
