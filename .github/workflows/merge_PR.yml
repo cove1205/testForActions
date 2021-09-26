@@ -2,19 +2,21 @@ name: merge_PR
 
 on:
   pull_request:
-    branches: [master]
-    types: [opened]
-    
- # workflow_run:
-   # types:
-     # - completed
-   # workflows:
-      # List all required workflow names here.
-      #- 'Continuous Integration'
-      
-  #check_suite:
-   # types:
-    # - completed
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+      - unlocked
+  pull_request_review:
+    types:
+      - submitted
+  check_suite:
+    types:
+      - completed
 
 
 jobs:
