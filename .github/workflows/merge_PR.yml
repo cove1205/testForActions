@@ -1,12 +1,24 @@
 name: merge_PR
 
 on:
-  pull_request:
-    branches: [master]
-    types: [opened]
+  #pull_request:
+    #branches: [master]
+    #types: [opened]
+    
+ # workflow_run:
+   # types:
+     # - completed
+   # workflows:
+      # List all required workflow names here.
+      #- 'Continuous Integration'
+      
+  check_suite:
+    types:
+      - completed
+
 
 jobs:
-  build:
+  automerge:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 
@@ -14,3 +26,9 @@ jobs:
 
       - name: show
         run: git rev-parse HEAD
+        
+      - name: automerge
+        uses: ridedott/merge-me-action@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_METHOD: REBASE
