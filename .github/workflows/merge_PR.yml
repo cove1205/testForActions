@@ -34,4 +34,4 @@ jobs:
           MERGE_LABELS: "automerge,!work in progress"
           MERGE_REMOVE_LABELS: "automerge"
           MERGE_METHOD: "rebase"
-          MERGE_COMMIT_MESSAGE: "Auto merge ${{ pullRequest.number }}"
+          MERGE_COMMIT_MESSAGE: "Auto merge ${{ github.event.pull_request.number }}"
