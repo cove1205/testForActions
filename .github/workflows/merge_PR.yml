@@ -1,0 +1,16 @@
+name: release
+
+on:
+  pull_request:
+    branches: [master]
+    types: [opened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v2
+
+      - name: show
+        run git rev-parse HEAD
