@@ -1,9 +1,9 @@
 name: merge_PR
 
 on:
-  #pull_request:
-    #branches: [master]
-    #types: [opened]
+  pull_request:
+    branches: [master]
+    types: [opened]
     
  # workflow_run:
    # types:
@@ -12,9 +12,9 @@ on:
       # List all required workflow names here.
       #- 'Continuous Integration'
       
-  check_suite:
-    types:
-      - completed
+  #check_suite:
+   # types:
+    # - completed
 
 
 jobs:
