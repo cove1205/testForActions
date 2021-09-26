@@ -27,11 +27,21 @@ jobs:
       - name: show
         run: git rev-parse HEAD
         
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v4
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          git_user_signingkey: true
+          git_config_global: true
+          # git_commit_gpgsign: true
+          # git_tag_gpgsign: true
+        
       - name: automerge
         uses: "pascalgn/automerge-action@v0.14.3"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: "automerge,!work in progress"
           MERGE_REMOVE_LABELS: "automerge"
-          MERGE_METHOD: "rebase"
+          MERGE_METHOD: "merge"
           MERGE_COMMIT_MESSAGE: "Auto merge ${{ github.event.pull_request.number }}"
