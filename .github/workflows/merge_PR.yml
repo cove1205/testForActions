@@ -28,7 +28,10 @@ jobs:
         run: git rev-parse HEAD
         
       - name: automerge
-        uses: ridedott/merge-me-action@v2
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MERGE_METHOD: REBASE
+        uses: "pascalgn/automerge-action@v0.14.3"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: "automerge,!work in progress"
+          MERGE_REMOVE_LABELS: "automerge"
+          MERGE_METHOD: "rebase"
+          MERGE_COMMIT_MESSAGE: "Auto merge ${{ pullRequest.number }}"
