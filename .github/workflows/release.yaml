@@ -4,10 +4,6 @@ on:
   push:
     branches:
         - master
-  pull_request_review:
-    types: [submitted]
-    branches:
-        - master
 jobs:
   run-release:
     runs-on: macOS-latest
